@@ -1,0 +1,13 @@
+package com.learn.manage.service;
+
+import com.learn.manage.util.LearnResult;
+
+public interface TeacherService {
+
+	public LearnResult getTeacherByToken(String token);
+	public LearnResult getGradeAndClass(String tid);
+	public LearnResult getStudentList(String grade);
+		
+	
+	
+}

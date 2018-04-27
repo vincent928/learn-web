@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"  
+xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+xsi:schemaLocation="http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd    
+    http://www.springframework.org/schema/mvc 
+    http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd  
+    http://www.springframework.org/schema/tx  
+    http://www.springframework.org/schema/tx/spring-tx-4.3.xsd  
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-4.3.xsd  
+    http://www.springframework.org/schema/aop  
+    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd"> 
+    
+ <!-- 数据库连接池 -->
+ <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+ <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+ <property name="url" value="jdbc:mysql:///learn?characterEncoding=UTF-8"/>
+ <property name="username" value="root"/>
+ <property name="password" value="123456"/>
+ <property name="maxActive" value="10"/>
+ <property name="maxIdle" value="5"/> 
+ </bean>
+ <!-- 配置sqlSessionFactory -->   
+ <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+ 			<!-- 加载mybatis的配置文件 -->
+ 			<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml"/>
+ 			<property name="dataSource" ref="dataSource"/>
+ </bean>
+ 
+  <!-- mapper批量扫描，从mapper包中扫描出mapper接口，自动创建代理对象并且在spring容器中注册
+		  遵循规范：需要将mapper接口类名和mapper.xml映射文件名称保持一致，切在同一个目录中
+		  自动扫描出来的mapper的bean的id为mapper类名（首字母小写）
+		  -->
+		 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+				<!-- 指定扫描的包名 
+				如果扫描多个包，每个包中间使用半角逗号分隔
+				--> 
+				<property name="basePackage" value="com.learn.manage.mapper"/>
+				<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+			 </bean>
+ 
+</beans>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

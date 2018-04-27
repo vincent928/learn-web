@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learn.manage.mapper.LHomeworkMapper">
+  <resultMap id="BaseResultMap" type="com.learn.manage.pojo.LHomework">
+    <id column="h_id" jdbcType="INTEGER" property="hId" />
+    <result column="q_id" jdbcType="INTEGER" property="qId" />
+    <result column="q_title" jdbcType="VARCHAR" property="qTitle" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="s_id" jdbcType="VARCHAR" property="sId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    h_id, q_id, q_title, type, s_id
+  </sql>
+  <select id="selectByExample" parameterType="com.learn.manage.pojo.LHomeworkExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from l_homework
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from l_homework
+    where h_id = #{hId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from l_homework
+    where h_id = #{hId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.learn.manage.pojo.LHomeworkExample">
+    delete from l_homework
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.learn.manage.pojo.LHomework">
+    insert into l_homework (h_id, q_id, q_title, 
+      type, s_id)
+    values (#{hId,jdbcType=INTEGER}, #{qId,jdbcType=INTEGER}, #{qTitle,jdbcType=VARCHAR}, 
+      #{type,jdbcType=CHAR}, #{sId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.learn.manage.pojo.LHomework">
+    insert into l_homework
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hId != null">
+        h_id,
+      </if>
+      <if test="qId != null">
+        q_id,
+      </if>
+      <if test="qTitle != null">
+        q_title,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="sId != null">
+        s_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hId != null">
+        #{hId,jdbcType=INTEGER},
+      </if>
+      <if test="qId != null">
+        #{qId,jdbcType=INTEGER},
+      </if>
+      <if test="qTitle != null">
+        #{qTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="sId != null">
+        #{sId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.learn.manage.pojo.LHomeworkExample" resultType="java.lang.Long">
+    select count(*) from l_homework
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update l_homework
+    <set>
+      <if test="record.hId != null">
+        h_id = #{record.hId,jdbcType=INTEGER},
+      </if>
+      <if test="record.qId != null">
+        q_id = #{record.qId,jdbcType=INTEGER},
+      </if>
+      <if test="record.qTitle != null">
+        q_title = #{record.qTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=CHAR},
+      </if>
+      <if test="record.sId != null">
+        s_id = #{record.sId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update l_homework
+    set h_id = #{record.hId,jdbcType=INTEGER},
+      q_id = #{record.qId,jdbcType=INTEGER},
+      q_title = #{record.qTitle,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=CHAR},
+      s_id = #{record.sId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.learn.manage.pojo.LHomework">
+    update l_homework
+    <set>
+      <if test="qId != null">
+        q_id = #{qId,jdbcType=INTEGER},
+      </if>
+      <if test="qTitle != null">
+        q_title = #{qTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="sId != null">
+        s_id = #{sId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where h_id = #{hId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.learn.manage.pojo.LHomework">
+    update l_homework
+    set q_id = #{qId,jdbcType=INTEGER},
+      q_title = #{qTitle,jdbcType=VARCHAR},
+      type = #{type,jdbcType=CHAR},
+      s_id = #{sId,jdbcType=VARCHAR}
+    where h_id = #{hId,jdbcType=INTEGER}
+  </update>
+</mapper>

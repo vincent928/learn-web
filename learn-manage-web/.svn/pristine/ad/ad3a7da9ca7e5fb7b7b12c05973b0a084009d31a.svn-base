@@ -1,0 +1,27 @@
+package com.learn.manage.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.learn.manage.util.CookieUtils;
+
+@Controller
+public class StudentController {
+
+	@RequestMapping("/student")
+	public String showStudent() {
+		return "student";
+	}
+	
+	@RequestMapping("/student/logout")
+	public String studentLogout(HttpServletRequest request,HttpServletResponse response) {
+		//清除token
+		CookieUtils.setCookie(request, response, "TOKEN", "");
+		return "redirect:/student";
+	}
+	
+}
