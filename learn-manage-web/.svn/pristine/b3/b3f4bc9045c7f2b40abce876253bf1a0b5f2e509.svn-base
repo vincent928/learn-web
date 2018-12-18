@@ -1,9 +1,0 @@
-package com.learn.manage.service;
-
-import com.learn.manage.util.EasyUIDataGridResult;
-import com.learn.manage.util.LearnResult;
-
-public interface StudentService {
-	public EasyUIDataGridResult getStudentList(int page, int rows);
-	public LearnResult getStudentByToken(String token);
-}
